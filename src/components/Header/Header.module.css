@@ -14,3 +14,15 @@
   object-fit: cover;
   border-radius: 50%;
 }
+
+.linksList {
+  list-style: none;
+  display: flex;
+  gap: 10px;
+  padding: 0;
+}
+
+.linksList a {
+  text-decoration: none;
+  color: inherit;
+}
