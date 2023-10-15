@@ -49,17 +49,16 @@ function User () {
     setCurrentIndex((currentIndex - 1 + users.length) % users.length)
   }
 
+  const { photoSrc, firstName, lastName, age } = users[currentIndex]
+
   return (
     <>
       <article className={styles.userCard}>
-        <img
-          src={users[currentIndex].photoSrc}
-          alt={`${users[currentIndex].firstName} ${users[currentIndex].lastName}`}
-        />
+        <img src={photoSrc} alt={`${firstName} ${lastName}`} />
         <p>
-          {users[currentIndex].firstName} {users[currentIndex].lastName}
+          {firstName} {lastName}
         </p>
-        <p>{users[currentIndex].age}</p>
+        <p>{age}</p>
       </article>
       <div className={styles.buttonContainer}>
         <button onClick={prev}>{'<'}</button>
