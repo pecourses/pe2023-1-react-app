@@ -38,7 +38,8 @@ const users = [
   }
 ]
 
-function User () {
+function User (props) {
+  const { isLight } = props
   const [currentIndex, setCurrentIndex] = useState(0)
 
   function next () {
@@ -47,6 +48,12 @@ function User () {
 
   function prev () {
     setCurrentIndex((currentIndex - 1 + users.length) % users.length)
+  }
+
+  const buttonStyle = {
+    border: `1px solid ${isLight ? 'black' : 'white'}`,
+    backgroundColor: isLight ? 'white' : 'black',
+    color: isLight ? 'black' : 'white'
   }
 
   const { photoSrc, firstName, lastName, age } = users[currentIndex]
@@ -61,8 +68,12 @@ function User () {
         <p>{age}</p>
       </article>
       <div className={styles.buttonContainer}>
-        <button onClick={prev}>{'<'}</button>
-        <button onClick={next}>{'>'}</button>
+        <button style={buttonStyle} onClick={prev}>
+          {'<'}
+        </button>
+        <button style={buttonStyle} onClick={next}>
+          {'>'}
+        </button>
       </div>
     </>
   )
