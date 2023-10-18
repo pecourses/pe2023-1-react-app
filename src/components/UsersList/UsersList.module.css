@@ -1,0 +1,52 @@
+:root {
+  --user-photo-size: 50px;
+  --bg-color: cornflowerblue;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.usersList {
+  max-width: 800px;
+  min-width: 300px;
+  width: 100%;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: var(--bg-color);
+  border-radius: 15px;
+}
+
+.userItem {
+  display: flex;
+  gap: 20px;
+  background-color: white;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.userItem + .userItem {
+  margin-top: 10px;
+}
+
+.userPhoto {
+  width: var(--user-photo-size);
+  height: var(--user-photo-size);
+  object-fit: cover;
+  border-radius: 7px;
+  border: 2px solid white;
+  outline: 2px solid var(--bg-color);
+}
+
+.removeBtn {
+  margin-left: auto;
+  background-color: transparent;
+  border: 0;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s transform;
+}
+
+.removeBtn:hover {
+  transform: scale(1.1);
+}
