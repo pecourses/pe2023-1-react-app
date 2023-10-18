@@ -1,7 +1,7 @@
-import UsersList from './components/UsersList';
+import CounterWithReducer from './components/CounterWithReducer';
 
 function App() {
-  return <UsersList />;
+  return <CounterWithReducer />;
 }
 
 export default App;
