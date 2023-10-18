@@ -44,7 +44,15 @@ const usersDb = [
   }
 ]
 function UsersList () {
-  const [users, setUsers] = useState(usersDb)
+  const [users, setUsers] = useState(
+    usersDb.map(u => ({ ...u, isSelected: false }))
+  )
+
+  function selectUser (index) {
+    const usersCopy = [...users]
+    usersCopy[index] = { ...users[index], isSelected: !users[index].isSelected }
+    setUsers(usersCopy)
+  }
 
   function removeUser (index) {
     // стан імутабельний
@@ -55,7 +63,13 @@ function UsersList () {
 
   function mapUsers (u, index) {
     return (
-      <UsesListItem key={u.id} user={u} index={index} removeUser={removeUser} />
+      <UsesListItem
+        key={u.id}
+        user={u}
+        index={index}
+        removeUser={removeUser}
+        selectUser={selectUser}
+      />
     )
   }
 

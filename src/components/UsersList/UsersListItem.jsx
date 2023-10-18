@@ -2,10 +2,18 @@ import { FaRegTrashCan } from 'react-icons/fa6'
 import styles from './UsersList.module.css'
 
 function UsesListItem (props) {
-  const { user: u, index, removeUser } = props
+  const { user: u, index, removeUser, selectUser } = props
+
+  const itemStyle = {
+    backgroundColor: u.isSelected ? 'lightyellow' : 'white'
+  }
 
   return (
-    <li className={styles.userItem}>
+    <li
+      style={itemStyle}
+      className={styles.userItem}
+      onClickCapture={() => selectUser(index)}
+    >
       <img
         className={styles.userPhoto}
         src={u.photoSrc}
@@ -20,5 +28,5 @@ function UsesListItem (props) {
     </li>
   )
 }
-
+// li (onClickCapture), button(onClick)
 export default UsesListItem
