@@ -1,7 +1,7 @@
-import CounterWithReducer from './components/CounterWithReducer';
+import LoginForm from './components/LoginForm';
 
 function App() {
-  return <CounterWithReducer />;
+  return <LoginForm />;
 }
 
 export default App;
