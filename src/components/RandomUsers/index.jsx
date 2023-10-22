@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import BeatLoader from 'react-spinners/BeatLoader'
 import { loadUsers } from '../../api'
+import styles from './RandomUsers.module.scss'
 
 function RandomUsers () {
   const [users, setUsers] = useState([]) // основні дані
@@ -44,7 +45,7 @@ function RandomUsers () {
 
       {isFetching && <BeatLoader />}
       {error && <div style={{ color: 'red' }}>!!!ERROR!!!</div>}
-      <ul>
+      <ul className={styles.usersList}>
         {!isFetching &&
           !error &&
           users.map(u => <li key={u.login.uuid}>{JSON.stringify(u)}</li>)}
