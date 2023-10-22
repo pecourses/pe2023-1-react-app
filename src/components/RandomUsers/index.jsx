@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import BeatLoader from 'react-spinners/BeatLoader'
+import { loadUsers } from '../../api'
 
 function RandomUsers () {
   const [users, setUsers] = useState([]) // основні дані
@@ -12,10 +13,8 @@ function RandomUsers () {
   useEffect(() => {
     setIsFetching(true)
     setError(null)
-    fetch(
-      `https://randomuser.me/api/?results=${results}&page=${page}&seed=pe2023`
-    )
-      .then(response => response.json())
+
+    loadUsers({ page, results })
       .then(data => setUsers(data.results))
       .catch(err => setError(err))
       .finally(() => setIsFetching(false))
