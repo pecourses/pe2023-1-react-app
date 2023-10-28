@@ -1,19 +1,47 @@
-import ImageWrapper from './components/ImageWrapper';
+import { useContext } from 'react';
+import { createContext } from 'react';
+
+// 1 Створення контекста
+const DataContext = createContext('default');
+const UserContext = createContext(null);
 
 function App() {
+  const data = 'data in App';
+  const user = { name: 'Test', surname: 'Testovych' };
+  // 2 Обгортаємо все дерево компонентів,
+  // яке повинне мати доступ до значення, в Provider
+  // в проп value
   return (
-    <ImageWrapper
-      width="50px"
-      height="50px"
-      title="Its a cat"
-      hidden={false}
-      style={{ border: '2px solid red' }}>
-      <img
-        src="https://hips.hearstapps.com/hmg-prod/images/beautiful-smooth-haired-red-cat-lies-on-the-sofa-royalty-free-image-1678488026.jpg?crop=0.88847xw:1xh;center,top&resize=1200:*"
-        alt="cat"
-      />
-    </ImageWrapper>
+    <UserContext.Provider value={user}>
+      <DataContext.Provider value={data}>
+        <Child />
+      </DataContext.Provider>
+    </UserContext.Provider>
   );
 }
 
 export default App;
+
+function Child() {
+  return <ChildChild />;
+}
+
+function ChildChild() {
+  // 3 Зчитати дані, які поклали в проп value за допомогою useContext(Ім'яКонтекста)
+  const data = useContext(DataContext);
+  return (
+    <div>
+      {data}
+      <ChildChildChild />
+    </div>
+  );
+}
+
+function ChildChildChild() {
+  const user = useContext(UserContext);
+  return <div>{user.name}</div>;
+}
+
+// Створити потомка ChildChild - ChildChildChild,
+// якому прокинути user = {name: 'Test', surname: "Testovych"}
+// з App
