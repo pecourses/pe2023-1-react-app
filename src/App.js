@@ -1,47 +1,34 @@
-import { useEffect, useState } from 'react';
-import classNames from 'classnames';
-import { ThemeContext } from './contexts';
-import UserPage from './pages/UserPage';
-import styles from './App.module.css';
-import CONSTANTS from './constants';
+import { Component } from 'react';
+import CounterWithClasses from './components/CounterWithClasses';
 
-const {
-  THEMES: { LIGTH, DARK, PURPLE },
-} = CONSTANTS;
+class App extends Component {
+  constructor(props) {
+    super(props);
 
-function App() {
-  const [theme, setTheme] = useState(LIGTH);
+    this.state = {
+      step: 2,
+    };
+  }
 
-  // 1 Зчитати дані при монтуванні
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    setTheme(savedTheme ? savedTheme : LIGTH);
-  }, []);
+  handleStepChange = ({ target: { value } }) => {
+    this.setState({ step: Number(value) });
+  };
 
-  // 2 Записувати змінені данні після зміни теми
-  useEffect(() => {
-    localStorage.setItem('theme', theme);
-  }, [theme]);
-
-  const containerClassName = classNames(styles.pageContainer, {
-    [styles.light]: theme === LIGTH,
-    [styles.dark]: theme === DARK,
-    [styles.purple]: theme === PURPLE,
-  });
-
-  return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
-      <div className={containerClassName}>
-        <UserPage />
-      </div>
-    </ThemeContext.Provider>
-  );
+  render() {
+    return (
+      <>
+        <input
+          type="number"
+          value={this.state.step}
+          onChange={this.handleStepChange}
+        />
+        <CounterWithClasses step={this.state.step} />
+      </>
+    );
+  }
 }
 
-export default App;
+// Counter({step: 1})
+// new Counter({step: 1}).render()
 
-// - App
-//   - UserPage
-//     - Header
-//       - ThemeSwitcher
-//     - main
+export default App;
