@@ -1,47 +1,47 @@
-import { useContext } from 'react';
-import { createContext } from 'react';
+import { useEffect, useState } from 'react';
+import classNames from 'classnames';
+import { ThemeContext } from './contexts';
+import UserPage from './pages/UserPage';
+import styles from './App.module.css';
+import CONSTANTS from './constants';
 
-// 1 Створення контекста
-const DataContext = createContext('default');
-const UserContext = createContext(null);
+const {
+  THEMES: { LIGTH, DARK, PURPLE },
+} = CONSTANTS;
 
 function App() {
-  const data = 'data in App';
-  const user = { name: 'Test', surname: 'Testovych' };
-  // 2 Обгортаємо все дерево компонентів,
-  // яке повинне мати доступ до значення, в Provider
-  // в проп value
+  const [theme, setTheme] = useState(LIGTH);
+
+  // 1 Зчитати дані при монтуванні
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    setTheme(savedTheme ? savedTheme : LIGTH);
+  }, []);
+
+  // 2 Записувати змінені данні після зміни теми
+  useEffect(() => {
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const containerClassName = classNames(styles.pageContainer, {
+    [styles.light]: theme === LIGTH,
+    [styles.dark]: theme === DARK,
+    [styles.purple]: theme === PURPLE,
+  });
+
   return (
-    <UserContext.Provider value={user}>
-      <DataContext.Provider value={data}>
-        <Child />
-      </DataContext.Provider>
-    </UserContext.Provider>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      <div className={containerClassName}>
+        <UserPage />
+      </div>
+    </ThemeContext.Provider>
   );
 }
 
 export default App;
 
-function Child() {
-  return <ChildChild />;
-}
-
-function ChildChild() {
-  // 3 Зчитати дані, які поклали в проп value за допомогою useContext(Ім'яКонтекста)
-  const data = useContext(DataContext);
-  return (
-    <div>
-      {data}
-      <ChildChildChild />
-    </div>
-  );
-}
-
-function ChildChildChild() {
-  const user = useContext(UserContext);
-  return <div>{user.name}</div>;
-}
-
-// Створити потомка ChildChild - ChildChildChild,
-// якому прокинути user = {name: 'Test', surname: "Testovych"}
-// з App
+// - App
+//   - UserPage
+//     - Header
+//       - ThemeSwitcher
+//     - main
