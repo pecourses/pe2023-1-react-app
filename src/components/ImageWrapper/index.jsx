@@ -1,4 +1,5 @@
 import styles from './ImageWrapper.module.scss'
+import PropTypes from 'prop-types'
 
 function ImageWrapper ({ children, width, height, ...restProps }) {
   const containerStyle = {
@@ -15,6 +16,17 @@ function ImageWrapper ({ children, width, height, ...restProps }) {
       {children}
     </div>
   )
+}
+
+ImageWrapper.defaultProps = {
+  width: '300px',
+  height: '300px'
+}
+
+ImageWrapper.propTypes = {
+  children: PropTypes.element.isRequired,
+  width: PropTypes.string,
+  height: PropTypes.string
 }
 
 export default ImageWrapper
