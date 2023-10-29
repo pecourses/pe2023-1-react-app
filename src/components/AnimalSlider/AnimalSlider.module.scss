@@ -1,0 +1,16 @@
+.dogFigure {
+  width: 400px;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+
+  img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  }
+
+  figcaption {
+    text-align: center;
+  }
+}
