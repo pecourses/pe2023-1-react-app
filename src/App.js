@@ -1,10 +1,13 @@
 import { useEffect } from 'react';
+import Counter from './components/Counter';
+import User from './components/User';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
   useHistory,
+  useRouteMatch,
 } from 'react-router-dom';
 
 // 1 Link змінює location
@@ -62,7 +65,22 @@ function Home() {
 // /components/counter
 // /components/user
 function Components() {
-  return <div>Components</div>;
+  const { url, path } = useRouteMatch();
+
+  return (
+    <div>
+      <Link to={`${url}/counter`}>Counter</Link>{' '}
+      <Link to={`${url}/user`}>User</Link>
+      <Switch>
+        <Route path={`${path}/counter`}>
+          <Counter />
+        </Route>
+        <Route path={`${path}/user`}>
+          <User />
+        </Route>
+      </Switch>
+    </div>
+  );
 }
 
 function About() {
