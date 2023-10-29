@@ -3,25 +3,50 @@ import { Component } from 'react'
 class CounterWithClasses extends Component {
   constructor (props) {
     super(props)
+    console.log('constructor')
 
     this.state = {
       count: 0
     }
   }
 
+  componentDidMount () {
+    console.log('componentDidMount')
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    if (this.state.count !== prevState.count) {
+      console.log('componentDidUpdate')
+    }
+  }
+
+  componentWillUnmount () {
+    console.log('componentWillUnmount')
+  }
+
   dec = () => {
-    // зміни в стані
-    this.setState({ count: this.state.count - this.props.step })
+    const {
+      state: { count },
+      props: { step }
+    } = this
+    console.log('setState')
+    this.setState({ count: count - step })
   }
 
   inc = () => {
-    this.setState({ count: this.state.count + this.props.step })
+    const {
+      state: { count },
+      props: { step }
+    } = this
+    this.setState({ count: count + step })
   }
 
   render () {
+    console.log('render')
+    const { count } = this.state
     return (
       <div>
-        Count: {this.state.count}
+        Count: {count}
         <button onClick={this.dec}>-</button>
         <button onClick={this.inc}>+</button>
       </div>
