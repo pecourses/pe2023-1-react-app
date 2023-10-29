@@ -1,34 +1,89 @@
-import { Component } from 'react';
-import CounterWithClasses from './components/CounterWithClasses';
+import { useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useHistory,
+} from 'react-router-dom';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+// 1 Link змінює location
+// 2 BrowserRouter підписано на зміни location
+// 3 BrowserRouter в Switch шукає Route з path, як у location (тобто як у обраного Link) і
+// 4 виводить компонент із пропа children або component
 
-    this.state = {
-      step: 2,
-    };
-  }
-
-  handleStepChange = ({ target: { value } }) => {
-    this.setState({ step: Number(value) });
-  };
-
-  render() {
-    return (
-      <>
-        <input
-          type="number"
-          value={this.state.step}
-          onChange={this.handleStepChange}
-        />
-        <CounterWithClasses step={this.state.step} />
-      </>
-    );
-  }
+// Додати навігацію для Contacts і Components
+function App() {
+  return (
+    <Router>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/about">About</Link>
+          </li>
+          <li>
+            <Link to="/components">Components</Link>
+          </li>
+          <li>
+            <Link to="/contacts">Contacts</Link>
+          </li>
+        </ul>
+      </nav>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/components">
+          <Components />
+        </Route>
+        <Route path="/about">
+          <About />
+        </Route>
+        <Route path="/contacts">
+          <Contacts />
+        </Route>
+        <Route path="/*">
+          <NotFound />
+        </Route>
+      </Switch>
+    </Router>
+  );
 }
 
-// Counter({step: 1})
-// new Counter({step: 1}).render()
-
 export default App;
+
+function Home() {
+  return <div>Home</div>;
+}
+
+// /components/counter
+// /components/user
+function Components() {
+  return <div>Components</div>;
+}
+
+function About() {
+  return <div>About</div>;
+}
+
+function Contacts() {
+  return <div>Contacts</div>;
+}
+
+function NotFound() {
+  const history = useHistory();
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      history.push('/');
+    }, 5000);
+    return () => {
+      clearTimeout(id);
+    };
+  });
+
+  return <div>404 Not Found</div>;
+}
