@@ -1,7 +1,7 @@
-import CounterWithClasses from './components/CounterWithClasses';
+import UsersListWithClasses from './components/UsersListWithClasses';
 
 function App() {
-  return <CounterWithClasses step={1} />;
+  return <UsersListWithClasses />;
 }
 
 export default App;
