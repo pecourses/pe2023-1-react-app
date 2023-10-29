@@ -6,6 +6,7 @@ import {
   Switch,
   Route,
   Link,
+  NavLink,
   useHistory,
   useRouteMatch,
 } from 'react-router-dom';
@@ -15,23 +16,32 @@ import {
 // 3 BrowserRouter в Switch шукає Route з path, як у location (тобто як у обраного Link) і
 // 4 виводить компонент із пропа children або component
 
-// Додати навігацію для Contacts і Components
+const navLinkStyle = isActive => ({ color: isActive ? 'green' : 'blue' });
+
 function App() {
   return (
     <Router>
       <nav>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <NavLink style={navLinkStyle} to="/">
+              Home
+            </NavLink>
           </li>
           <li>
-            <Link to="/about">About</Link>
+            <NavLink style={navLinkStyle} to="/about">
+              About
+            </NavLink>
           </li>
           <li>
-            <Link to="/components">Components</Link>
+            <NavLink style={navLinkStyle} to="/components">
+              Components
+            </NavLink>
           </li>
           <li>
-            <Link to="/contacts">Contacts</Link>
+            <NavLink style={navLinkStyle} to="/contacts">
+              Contacts
+            </NavLink>
           </li>
         </ul>
       </nav>
@@ -62,8 +72,6 @@ function Home() {
   return <div>Home</div>;
 }
 
-// /components/counter
-// /components/user
 function Components() {
   const { url, path } = useRouteMatch();
 
