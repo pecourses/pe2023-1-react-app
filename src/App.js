@@ -1,7 +1,7 @@
-import UserForm from './components/UserForm';
+import UserProfileInfo from './pages/UserProfileInfo';
 
 function App() {
-  return <UserForm />;
+  return <UserProfileInfo />;
 }
 
 export default App;
