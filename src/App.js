@@ -1,5 +1,7 @@
+import UserForm from './components/UserForm';
+
 function App() {
-  return <></>;
+  return <UserForm />;
 }
 
 export default App;
