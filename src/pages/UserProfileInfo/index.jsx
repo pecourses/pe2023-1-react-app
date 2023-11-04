@@ -1,5 +1,4 @@
-import ContactsForm from '../../components/ContactsForm'
-
+import ContactsForm from '../../components/forms/ContactsForm/index'
 function UserProfileInfo () {
   return (
     <div>
