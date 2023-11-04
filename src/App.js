@@ -1,37 +1,30 @@
-import DataProvider from './components/DataProvider/index';
+import { useState } from 'react';
 
-const PhonesLoadedList = props => {
-  const { data: phones, isFetching, error } = props.phonesData;
-  return (
-    <>
-      {isFetching && <div>Loading...</div>}
-      {error && <div>ERROR</div>}
-      <ol>
-        {phones.map(p => (
-          <li key={p.id}>
-            {p.brand} {p.model}: {p.price}
-          </li>
-        ))}
-      </ol>
-    </>
-  );
-};
-
-// Рендер-проп - функція, яка повідомляє компоненту що необхідно відрендерити
-// Цей патерн дозволяє ділитися логікою
+// HOC - компонент вищого порядку (функція, яка приймає і повертає компонент)
 
 function App() {
-  return (
-    <>
-      {/* <DataProvider
-        fileName="/data/phones.json"
-        render={data => <PhonesLoadedList phonesData={data} />}
-      /> */}
-      <DataProvider fileName="/data/phones.json">
-        {data => <PhonesLoadedList phonesData={data} />}
-      </DataProvider>
-    </>
-  );
+  const InnerComponentWithNewProp = withNewProp(InnerComponent);
+
+  return <InnerComponentWithNewProp ownProp="ownProp" />;
 }
 
 export default App;
+
+function withNewProp(WrappedComponent) {
+  function WrappedComponentWithNewProp(props) {
+    const [someState, setSomeState] = useState('some value');
+    return <WrappedComponent newProp={someState} {...props} />;
+  }
+
+  return WrappedComponentWithNewProp;
+}
+
+function InnerComponent(props) {
+  return (
+    <div>
+      Props:
+      {props.ownProp ?? 'ownProp is missing'}
+      {props.newProp ?? 'newProp is missing'}
+    </div>
+  );
+}
