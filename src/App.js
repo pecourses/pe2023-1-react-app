@@ -1,7 +1,7 @@
-import UserProfileInfo from './pages/UserProfileInfo';
+import UsersLoaderCustomH from './components/UsersLoaderCustomH'
 
-function App() {
-  return <UserProfileInfo />;
+function App () {
+  return <UsersLoaderCustomH />
 }
 
-export default App;
+export default App

@@ -1,20 +1,22 @@
-import queryString from 'query-string';
-import CONFIGS from './../configs';
+import queryString from 'query-string'
+import CONFIGS from './../configs'
 
-export function loadUsers(options) {
+function loadUsers (options) {
   const defaultOptions = {
     page: 1,
     results: 10,
     baseUrl: CONFIGS.BASE_URL,
-    seed: CONFIGS.RESULTS_ORDER,
-  };
+    seed: CONFIGS.RESULTS_ORDER
+  }
 
   const { baseUrl, ...realOptions } = {
     ...defaultOptions,
-    ...options,
-  };
+    ...options
+  }
 
   return fetch(`${baseUrl}?${queryString.stringify(realOptions)}`).then(
     response => response.json()
-  );
+  )
 }
+
+export default loadUsers
